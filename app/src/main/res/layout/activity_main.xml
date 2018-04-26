@@ -14,14 +14,16 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:id="@+id/b1"
-        android:text="1st button!" />
+        android:text="1st button!"
+        android:onClick="myFirstMethod"
+        />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/b1"
-        android:layout_alignParentBottom="true"
         android:id="@+id/b2"
+        android:layout_alignParentBottom="true"
         android:text="2st button!" />
 
     <Button
