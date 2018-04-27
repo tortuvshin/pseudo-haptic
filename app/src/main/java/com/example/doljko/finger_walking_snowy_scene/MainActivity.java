@@ -1,6 +1,7 @@
 package com.example.doljko.finger_walking_snowy_scene;
 
 import android.annotation.SuppressLint;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -28,11 +29,12 @@ public class MainActivity extends AppCompatActivity {
        myLayout = (RelativeLayout)findViewById(R.id.myLayout);
        luckyID = (ImageButton)findViewById(R.id.luckyID);
 
+       final MediaPlayer mp = MediaPlayer.create(this, R.raw.snow);
        myLayout.setOnTouchListener(new View.OnTouchListener() {
 
            @Override
            public boolean onTouch(View v, MotionEvent event) {
-
+               mp.start();
                x = event.getX();
                y = event.getY();
                if (event.getAction() == MotionEvent.ACTION_MOVE) {
