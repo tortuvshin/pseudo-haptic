@@ -10,14 +10,34 @@
     android:hapticFeedbackEnabled="true"
     >
 
-    <RelativeLayout
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:id="@+id/snow_background"
         android:background="@drawable/snow"
+        android:scaleType="fitXY"
         android:hapticFeedbackEnabled="true"
         />
+
+    <!--<FrameLayout-->
+        <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/background_one"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:src="@drawable/snow"/>-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/background_two"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:src="@drawable/snow"/>-->
+
+    <!--</FrameLayout>-->
 
     <ImageButton
         android:src="@drawable/ic_action_name"
