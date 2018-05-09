@@ -16,7 +16,9 @@ public class MainActivity extends AppCompatActivity{
     private RelativeLayout myView;
     private ImageButton footStep;
 
-    private float x, y, dx, dy;
+    private float y;
+    private float dy;
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,14 +34,11 @@ public class MainActivity extends AppCompatActivity{
                 mp.start();
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN: {
-                        x = event.getX();
                         y = event.getY();
-                        dx = x - myView.getX();
                         dy = y - myView.getY();
                     }
                     break;
                     case MotionEvent.ACTION_MOVE: {
-                        myView.setX(event.getX() - dx);
                         myView.setY(event.getY() - dy);
                     }
                     break;
@@ -48,7 +47,6 @@ public class MainActivity extends AppCompatActivity{
                     }
                     return true;
                 }
-                mp.stop();
                 return true;
             }
         });
