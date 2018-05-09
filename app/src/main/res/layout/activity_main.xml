@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:weightSum="100"
     android:orientation="vertical"
-    android:id="@+id/myLayout"
+    android:id="@+id/myView"
     android:background="@drawable/snow"
     >
 
@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginTop="208dp"
-        android:id="@+id/luckyID"
+        android:id="@+id/footStep"
         android:text="HI" />
 
 </RelativeLayout>
