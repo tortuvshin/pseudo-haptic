@@ -10,42 +10,22 @@
     android:hapticFeedbackEnabled="true"
     >
 
+
     <ImageView
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:id="@+id/snow_background"
         android:background="@drawable/snow"
-        android:scaleType="fitXY"
-        android:hapticFeedbackEnabled="true"
-        />
+        android:id="@+id/snow_background">
 
-    <!--<FrameLayout-->
-        <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent">-->
+    </ImageView>
 
-        <!--<ImageView-->
-            <!--android:id="@+id/background_one"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:src="@drawable/snow"/>-->
-
-        <!--<ImageView-->
-            <!--android:id="@+id/background_two"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:src="@drawable/snow"/>-->
-
-    <!--</FrameLayout>-->
-
-    <ImageButton
-        android:src="@drawable/ic_action_name"
+    <TextView
+        android:id="@+id/y_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="208dp"
-        android:id="@+id/footStep"
-        android:text="HI" />
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"/>
 
 </RelativeLayout>
