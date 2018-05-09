@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity{
 
-    private RelativeLayout myView;
+    private RelativeLayout snowBackground;
     private ImageButton footStep;
 
     private float y;
@@ -24,22 +24,22 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        myView = (RelativeLayout)findViewById(R.id.myView);
+        snowBackground = (RelativeLayout)findViewById(R.id.snow_background);
         footStep = (ImageButton)findViewById(R.id.footStep);
 
         final MediaPlayer mp = MediaPlayer.create(this, R.raw.snow);
-        myView.setOnTouchListener(new View.OnTouchListener() {
+        snowBackground.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 mp.start();
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN: {
                         y = event.getY();
-                        dy = y - myView.getY();
+                        dy = y - snowBackground.getY();
                     }
                     break;
                     case MotionEvent.ACTION_MOVE: {
-                        myView.setY(event.getY() - dy);
+                        snowBackground.setY(event.getY() - dy);
                     }
                     break;
                     case MotionEvent.ACTION_UP: {
