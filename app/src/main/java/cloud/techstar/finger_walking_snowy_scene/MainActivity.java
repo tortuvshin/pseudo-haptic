@@ -1,4 +1,4 @@
-package com.example.doljko.finger_walking_snowy_scene;
+package cloud.techstar.finger_walking_snowy_scene;
 
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
@@ -12,6 +12,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import com.example.doljko.finger_walking_snowy_scene.R;
 
 
 public class MainActivity extends AppCompatActivity{
