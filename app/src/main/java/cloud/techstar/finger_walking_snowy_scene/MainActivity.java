@@ -29,8 +29,7 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Background background = new Background(this);
-        setContentView(background);
+        setContentView(R.layout.activity_main);
 
 //        snowBackground = (ImageView) findViewById(R.id.snow_background);
 //        final TextView valueText = (TextView) findViewById(R.id.y_value);
