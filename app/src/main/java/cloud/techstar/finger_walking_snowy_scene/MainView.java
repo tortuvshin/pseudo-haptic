@@ -16,18 +16,16 @@ public class MainView extends SurfaceView implements Runnable {
     private volatile boolean running;
     private Thread gameThread = null;
 
-    // For drawing
     private Paint paint;
     private Canvas canvas;
     private SurfaceHolder ourHolder;
 
-    // Holds a reference to the Activity
     Context context;
 
-    // Control the fps
+    // Өөрчлөх хэмжээс
     static float fps = 0;
 
-    // Screen resolution
+    // Дэлгэцийн хэмжээнүүд
     int screenWidth;
     int screenHeight;
 
@@ -39,15 +37,11 @@ public class MainView extends SurfaceView implements Runnable {
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
 
-        // Initialize our drawing objects
         ourHolder = getHolder();
         paint = new Paint();
 
-        // Initialize our array list
+        // Хооронд нь солих арын зургуудийн array
         backgrounds = new ArrayList<>();
-
-        //load the background data into the Background objects and
-        // place them in our GameObject arraylist
 
         backgrounds.add(new Background(
                 this.context,
@@ -60,9 +54,6 @@ public class MainView extends SurfaceView implements Runnable {
                 screenWidth,
                 screenHeight,
                 "snow",  70, 110, 1));
-
-        // Add more backgrounds here
-
     }
 
     @Override
@@ -78,7 +69,7 @@ public class MainView extends SurfaceView implements Runnable {
     }
 
     public void update(float fps) {
-        // Update all the background positions
+        // Background-ийн байршлыг өөрчлөх
         for (Background bg : backgrounds) {
             bg.update(fps);
         }
@@ -87,48 +78,30 @@ public class MainView extends SurfaceView implements Runnable {
     private void draw() {
 
         if (ourHolder.getSurface().isValid()) {
-            //First we lock the area of memory we will be drawing to
+
             canvas = ourHolder.lockCanvas();
 
-            //draw a background color
             canvas.drawColor(Color.argb(255, 0, 3, 70));
 
-            // Draw the background parallax
             drawBackground(0);
 
-            // Draw the rest of the game
-//            paint.setTextSize(60);
-//            paint.setColor(Color.argb(255, 255, 255, 255));
-//            canvas.drawText("I am a plane", 350, screenHeight / 100 * 5, paint);
-//            paint.setTextSize(220);
-//            canvas.drawText("I'm a train", 50, screenHeight/100*80, paint);
-
-//            drawBackground(1);
-            // Draw the foreground parallax
-
-            // Unlock and draw the scene
             ourHolder.unlockCanvasAndPost(canvas);
         }
     }
 
     private void drawBackground(int position) {
 
-        // Make a copy of the relevant background
         Background bg = backgrounds.get(position);
 
-        // define what portion of images to capture and
-        // what coordinates of screen to draw them at
-
-        // For the regular bitmap
-
+        // Эхний background-ийн хувьд
         Rect toRect1 = new Rect(0, 0, bg.width - bg.xClip, bg.height);
         Rect fromRect1 = new Rect(bg.xClip, bg.startY, bg.width, bg.endY);
 
-        // For the reversed background
+        // Солих background
         Rect toRect2 = new Rect(bg.width - bg.xClip, 0, bg.width, bg.height);
         Rect fromRect2 = new Rect(0, bg.startY, bg.xClip, bg.endY);
 
-        //draw the two background bitmaps
+        //background зурах
         if (!bg.reversedFirst) {
             canvas.drawBitmap(bg.bitmap, fromRect1, toRect1, paint);
             canvas.drawBitmap(bg.bitmapReversed, fromRect2, toRect2, paint);
@@ -139,7 +112,6 @@ public class MainView extends SurfaceView implements Runnable {
 
     }
 
-    // Clean up our thread if the game is stopped
     public void pause() {
         running = false;
         try {
@@ -149,12 +121,9 @@ public class MainView extends SurfaceView implements Runnable {
         }
     }
 
-    // Make a new thread and start it
-    // Execution moves to our run method
     public void resume() {
         running = true;
         gameThread = new Thread(this);
         gameThread.start();
     }
-
-}// End of ParallaxView
+}

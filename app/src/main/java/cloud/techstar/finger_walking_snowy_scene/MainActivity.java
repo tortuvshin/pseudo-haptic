@@ -26,17 +26,15 @@ public class MainActivity extends Activity {
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-        // Get a Display object to access screen details
+        // Дэлгэцийн мэдээллийг харахын тулд Дэлгэцийн объект үүсгэх
         Display display = getWindowManager().getDefaultDisplay();
 
-        // Load the resolution into a Point object
+        // Resolution буюу тухайн төхөөрөмжийн дэлгэцийн хэмжээг Point обьект болгох
         Point resolution = new Point();
         display.getSize(resolution);
 
-        // And finally set the view for our game
         mainView = new MainView(this, resolution.x, resolution.y);
 
-        // Make our parallaxView the view for the Activity
         setContentView(mainView);
 
         setTheme(R.style.AppTheme);

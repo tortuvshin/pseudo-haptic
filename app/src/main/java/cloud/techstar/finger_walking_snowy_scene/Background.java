@@ -61,7 +61,7 @@ public class Background {
 
     public void update(float fps){
 
-        // Move the clipping position and reverse if necessary
+        // Цасны байршлыг хөдөлгөх шаардлагатай бол шинээр солино
         xClip -= fps;
         if (xClip >= width) {
             xClip = 0;
