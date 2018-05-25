@@ -1,25 +1,19 @@
 package cloud.techstar.finger_walking_snowy_scene;
 
 import android.annotation.SuppressLint;
-import android.media.MediaPlayer;
+import android.app.Activity;
+import android.content.pm.ActivityInfo;
+import android.graphics.Point;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends Activity {
 
-    private ImageView snowBackground; // Цасны гадаргуу харуулж байгаа ImageView
-
-    /**
-     * Цасан дээр алхаж байгаа мэт мэдрэмжийг төрүүлэхийн тулд хэрэглэгч дэлгэц дээр
-     * ямар хэсэгт хүрсэн /X, Y координатуудын хувьд/, тэнхлэгийн утга нь байрлал болон бусад
-     * хөдөлгөөний шинж чанарын хувьд хэрхэн өөрчлөгдсөн бэ гэдгийг мэдэх хэрэгтэй болно.
-     * Ингэхийн тулд дараах X, Y тэнхлэгийн утга эхний удаа дэлгэцэнд хүрхэд ямар байсан
-     * дараа нь хэрхэн өөрчлөгдсөн бэ гэдгийг мэдэх хэрэгтэй болно
-     * */
+    // Our object to handle the View
+    private MainView mainView;
     private float y; // Y тэнхлэгт эхлээд хаана хүрсэн
     private float dy; // Y тэнхлэгт дараа нь хаана хүрч утга нь өөрчлөгдсөн
     private float x; // X тэнхлэгт эхлээд хаана хүрсэн
@@ -29,61 +23,68 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-//        snowBackground = (ImageView) findViewById(R.id.snow_background);
-//        final TextView valueText = (TextView) findViewById(R.id.y_value);
-//        final MediaPlayer mp = MediaPlayer.create(this, R.raw.snow);
-//
-//        // Background дээр хүрэх event ийг барих
-//        snowBackground.setOnTouchListener(new View.OnTouchListener() {
-//            @SuppressLint("SetTextI18n")
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-////                mp.start();
-//
-//                /** Хэрэглэгч дэлгэцэн дээр хүрэх үед систем холбогдох эвэнтүүдийг шалгах
-//                 * Доошоо, дээшээ, баруун, зүүн гэх мэт олон төрлийн хөдөлгөөнүүдийг MotionEvent-ийн
-//                 * тусламжтайгаар барьж авна
-//                 * {@link https://developer.android.com/reference/android/view/MotionEvent}.
-//                 */
-//                switch (event.getAction()) {
-//
-//                    /**
-//                     * y, dy, x, dy утгууд ямар учиртай вэ гэвэл
-//                     * Алхах хөдөлгөөн хийхийн тулд эхний хөл гишгээд дараагийн хөл урд гишгэдэг
-//                     * y,x утга дээр эхлээд хаана гишгэсэн
-//                     * dy, dx утга дээр дараа нь хаана гишгэсэн гэдгийг авч байна гэж ойлгох хэрэгтэй
-//                     * Арын цасыг хэрхэн хөдөлгөх вэ гэвэл эхний гишгэсэн утгаас дараагийн утгыг хасаад ялгаварын хэмжээгээр
-//                     * арын зургаа Y тэнхлэгийн дагуу хөдөлгөнө гэсэн үг
-//                     * */
-//                    case MotionEvent.ACTION_DOWN: {
-//                        y = event.getY(); // А
-//                        dy = y - snowBackground.getY(); //
-//                        x = event.getX();
-//                        dx = x - snowBackground.getX();
-//
-//                    }
-//                    break;
-//                    case MotionEvent.ACTION_MOVE: {
-//                        snowBackground.setY(event.getY() - dy);
-//
-////                        snowBackground.setX(event.getX() - dx);
-//
-//                        valueText.setText("BEFORE VALUE:  Y "+y +" X "+x +
-//                                "\nCURRENT VALUE: Y "+ event.getY()+ " X "+event.getX()+
-//                                "\nCHANGED VALUE: Y "+ (event.getY()-dy) + " X "+(event.getX() - dx));
-//                    }
-//                    break;
-//                    case MotionEvent.ACTION_UP: {
-//                        //your stuff
-//                    }
-//                    return true;
-//                }
-//                return true;
-//            }
-//
-//        });
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+        // Get a Display object to access screen details
+        Display display = getWindowManager().getDefaultDisplay();
+
+        // Load the resolution into a Point object
+        Point resolution = new Point();
+        display.getSize(resolution);
+
+        // And finally set the view for our game
+        mainView = new MainView(this, resolution.x, resolution.y);
+
+        // Make our parallaxView the view for the Activity
+        setContentView(mainView);
+
+        setTheme(R.style.AppTheme);
+
+        mainView.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch (event.getAction()) {
+
+                    case MotionEvent.ACTION_DOWN: {
+                        y = event.getY(); // А
+                        dy = y - mainView.getY(); //
+                        x = event.getX();
+                        dx = x - mainView.getX();
+                    }
+                    break;
+                    case MotionEvent.ACTION_MOVE: {
+                        mainView.update(event.getX() - dx);
+                        Log.d("", "BEFORE VALUE:  Y "+y +" X "+x +
+                                "\nCURRENT VALUE: Y "+ event.getY()+ " X "+event.getX()+
+                                "\nCHANGED VALUE: Y "+ (event.getY()-dy) + " X "+(event.getX() - dx));
+
+                    }
+                    break;
+                    case MotionEvent.ACTION_UP: {
+                        //your stuff
+                    }
+                    return true;
+                }
+                return true;
+            }
+
+        });
+    }
+
+    // If the Activity is paused make sure to pause our thread
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mainView.pause();
+    }
+
+    // If the Activity is resumed make sure to resume our thread
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mainView.resume();
     }
 }
-

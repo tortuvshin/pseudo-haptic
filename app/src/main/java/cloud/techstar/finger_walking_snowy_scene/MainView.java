@@ -9,7 +9,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import java.util.ArrayList;
 
-public class ParallaxView extends SurfaceView implements Runnable {
+public class MainView extends SurfaceView implements Runnable {
 
     ArrayList<Background> backgrounds;
 
@@ -25,13 +25,13 @@ public class ParallaxView extends SurfaceView implements Runnable {
     Context context;
 
     // Control the fps
-    long fps =60;
+    static float fps = 0;
 
     // Screen resolution
     int screenWidth;
     int screenHeight;
 
-    ParallaxView(Context context, int screenWidth, int screenHeight) {
+    MainView(Context context, int screenWidth, int screenHeight) {
         super(context);
 
         this.context = context;
@@ -53,13 +53,13 @@ public class ParallaxView extends SurfaceView implements Runnable {
                 this.context,
                 screenWidth,
                 screenHeight,
-                "snow",  0, 100, 550));
+                "snow",  0, 100, 1));
 
         backgrounds.add(new Background(
                 this.context,
                 screenWidth,
                 screenHeight,
-                "snow",  70, 110, 200));
+                "snow",  70, 110, 1));
 
         // Add more backgrounds here
 
@@ -69,27 +69,21 @@ public class ParallaxView extends SurfaceView implements Runnable {
     public void run() {
 
         while (running) {
-            long startFrameTime = System.currentTimeMillis();
 
-            update();
+            update(fps);
 
             draw();
 
-            // Calculate the fps this frame
-            long timeThisFrame = System.currentTimeMillis() - startFrameTime;
-            if (timeThisFrame >= 1) {
-                fps = 1000 / timeThisFrame;
-            }
         }
     }
 
-    private void update() {
+    public void update(float fps) {
         // Update all the background positions
         for (Background bg : backgrounds) {
             bg.update(fps);
         }
-
     }
+
     private void draw() {
 
         if (ourHolder.getSurface().isValid()) {
@@ -126,12 +120,13 @@ public class ParallaxView extends SurfaceView implements Runnable {
         // what coordinates of screen to draw them at
 
         // For the regular bitmap
-        Rect fromRect1 = new Rect(0, 0, bg.width - bg.xClip, bg.height);
-        Rect toRect1 = new Rect(bg.xClip, bg.startY, bg.width, bg.endY);
+
+        Rect toRect1 = new Rect(0, 0, bg.width - bg.xClip, bg.height);
+        Rect fromRect1 = new Rect(bg.xClip, bg.startY, bg.width, bg.endY);
 
         // For the reversed background
-        Rect fromRect2 = new Rect(bg.width - bg.xClip, 0, bg.width, bg.height);
-        Rect toRect2 = new Rect(0, bg.startY, bg.xClip, bg.endY);
+        Rect toRect2 = new Rect(bg.width - bg.xClip, 0, bg.width, bg.height);
+        Rect fromRect2 = new Rect(0, bg.startY, bg.xClip, bg.endY);
 
         //draw the two background bitmaps
         if (!bg.reversedFirst) {

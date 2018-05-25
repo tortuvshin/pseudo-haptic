@@ -59,10 +59,10 @@ public class Background {
 
     }
 
-    public void update(long fps){
+    public void update(float fps){
 
         // Move the clipping position and reverse if necessary
-        xClip -= speed/fps;
+        xClip -= fps;
         if (xClip >= width) {
             xClip = 0;
             reversedFirst = !reversedFirst;
