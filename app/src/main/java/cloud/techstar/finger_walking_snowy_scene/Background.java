@@ -66,6 +66,9 @@ public class Background {
         if (xClip >= width) {
             xClip = 0;
             reversedFirst = !reversedFirst;
+//        } else if (xClip >= height) {
+//            xClip = 0;
+//            reversedFirst = !reversedFirst;
         } else if (xClip <= 0) {
             xClip = width;
             reversedFirst = !reversedFirst;
