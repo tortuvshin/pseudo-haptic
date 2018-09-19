@@ -54,7 +54,8 @@ public class MainActivity extends Activity {
                     }
                     break;
                     case MotionEvent.ACTION_MOVE: {
-                        mainView.update(event.getX() - dx);
+//                        mainView.update(event.getX() - dx);
+                        mainView.update(40);
                         Log.d("", "BEFORE VALUE:  Y "+y +" X "+x +
                                 "\nCURRENT VALUE: Y "+ event.getY()+ " X "+event.getX()+
                                 "\nCHANGED VALUE: Y "+ (event.getY()-dy) + " X "+(event.getX() - dx));
