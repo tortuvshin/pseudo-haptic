@@ -1,26 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SnowFall"
     android:background="@drawable/snow">
+<cloud.techstar.finger_walking_snowy_scene.SnowFlakesLayout
+    android:id="@+id/snow_flake"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <com.jetradarmobile.snowfall.SnowfallView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:snowflakesNum="250"
-        app:snowflakeAlphaMin="20"
-        app:snowflakeAlphaMax="350"
-        app:snowflakeAngleMax="5"
-        app:snowflakeSizeMin="2dp"
-        app:snowflakeSizeMax="8dp"
-        app:snowflakeSpeedMin="4"
-        app:snowflakeSpeedMax="12"
-        app:snowflakesFadingEnabled="true"
-        app:snowflakesAlreadyFalling="true"
-
-        />
+</cloud.techstar.finger_walking_snowy_scene.SnowFlakesLayout>
 
 </android.support.constraint.ConstraintLayout>
