@@ -5,6 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <cloud.techstar.finger_walking_snowy_scene.TreeLayout
+        android:id="@+id/tree"
+        android:layout_width="201dp"
+        android:layout_height="242dp"
+        android:layout_gravity="center" />
+
     <cloud.techstar.finger_walking_snowy_scene.MainView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
@@ -16,4 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </cloud.techstar.finger_walking_snowy_scene.SnowFlakesLayout>
+
+
+
 </android.support.constraint.ConstraintLayout>

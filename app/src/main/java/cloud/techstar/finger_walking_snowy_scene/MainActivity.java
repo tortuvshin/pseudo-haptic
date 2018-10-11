@@ -9,11 +9,14 @@ import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 public class MainActivity extends Activity {
 
     // Our object to handle the View
     private MainView mainView;
+    private TreeLayout treeView;
     private float y; // Y тэнхлэгт эхлээд хаана хүрсэн
     private float dy; // Y тэнхлэгт дараа нь хаана хүрч утга нь өөрчлөгдсөн
     private float x; // X тэнхлэгт эхлээд хаана хүрсэн
@@ -25,6 +28,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         // Дэлгэцийн мэдээллийг харахын тулд Дэлгэцийн объект үүсгэх
         Display display = getWindowManager().getDefaultDisplay();
@@ -33,10 +38,17 @@ public class MainActivity extends Activity {
         Point resolution = new Point();
         display.getSize(resolution);
 
-        setContentView(R.layout.activity_snow_fall);
+        setContentView(R.layout.activity_main);
 
         mainView = (MainView)findViewById(R.id.main_view);
-        mainView.init(resolution.x, resolution.y);
+
+        Log.e("SIZE",""+resolution.x);
+        mainView.init(resolution.x, resolution.y + getStatusBarHeight());
+        treeView = (TreeLayout) findViewById(R.id.tree);
+        treeView.init(500, 500);
+
+
+
 
         mainView.setOnTouchListener(new View.OnTouchListener() {
             @SuppressLint("SetTextI18n")
@@ -54,10 +66,12 @@ public class MainActivity extends Activity {
                     break;
                     case MotionEvent.ACTION_MOVE: {
 //                        mainView.update(event.getX() - dx);
+                        treeView.update(80);
                         mainView.update(40);
                         Log.d("", "BEFORE VALUE:  Y "+y +" X "+x +
                                 "\nCURRENT VALUE: Y "+ event.getY()+ " X "+event.getX()+
                                 "\nCHANGED VALUE: Y "+ (event.getY()-dy) + " X "+(event.getX() - dx));
+
 
                     }
                     break;
@@ -81,8 +95,18 @@ public class MainActivity extends Activity {
         snowFlakesLayout.setEnableRandomCurving(true);
         snowFlakesLayout.setEnableAlphaFade(true);
         snowFlakesLayout.startSnowing();
-    }
 
+
+
+    }
+    public int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
     // If the Activity is paused make sure to pause our thread
     @Override
     protected void onPause() {

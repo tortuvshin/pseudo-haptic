@@ -8,9 +8,10 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
 import java.util.ArrayList;
 
-public class MainView extends SurfaceView implements Runnable {
+public class TreeLayout extends SurfaceView implements Runnable {
 
     ArrayList<Background> backgrounds;
 
@@ -29,13 +30,14 @@ public class MainView extends SurfaceView implements Runnable {
     // Дэлгэцийн хэмжээнүүд
     int screenWidth;
     int screenHeight;
+  //object-baigulagch ene classin.
 
-    public MainView(Context context) {
+    public TreeLayout(Context context) {
         super(context);
         this.context = context;
     }
 
-    public MainView(Context context, AttributeSet attrs) {
+    public TreeLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
     }
@@ -55,13 +57,13 @@ public class MainView extends SurfaceView implements Runnable {
                 this.context,
                 screenWidth,
                 screenHeight,
-                "snow",  0, 100, 1));
+                "tree",  0, 100, 1));
 
         backgrounds.add(new Background(
                 this.context,
                 screenWidth,
                 screenHeight,
-                "snow",  70, 110, 1));
+                "tree",  70, 110, 1));
     }
 
     @Override
