@@ -36,7 +36,6 @@ public class MainActivity extends Activity {
         mainView = new MainView(this, resolution.x, resolution.y);
 
         setContentView(mainView);
-
         setTheme(R.style.AppTheme);
 
         mainView.setOnTouchListener(new View.OnTouchListener() {
