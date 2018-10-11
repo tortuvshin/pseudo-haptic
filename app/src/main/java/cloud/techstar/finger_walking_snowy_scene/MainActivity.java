@@ -33,10 +33,10 @@ public class MainActivity extends Activity {
         Point resolution = new Point();
         display.getSize(resolution);
 
-        mainView = new MainView(this, resolution.x, resolution.y);
+        setContentView(R.layout.activity_snow_fall);
 
-        setContentView(mainView);
-        setTheme(R.style.AppTheme);
+        mainView = (MainView)findViewById(R.id.main_view);
+        mainView.init(resolution.x, resolution.y);
 
         mainView.setOnTouchListener(new View.OnTouchListener() {
             @SuppressLint("SetTextI18n")
@@ -70,6 +70,17 @@ public class MainActivity extends Activity {
             }
 
         });
+
+        SnowFlakesLayout snowFlakesLayout = (SnowFlakesLayout)findViewById(R.id.snow_flake);
+        snowFlakesLayout.init();
+        snowFlakesLayout.setWholeAnimateTiming(3000000);
+        snowFlakesLayout.setAnimateDuration(5000);
+        snowFlakesLayout.setGenerateSnowTiming(50);
+        snowFlakesLayout.setRandomSnowSizeRange(40, 1); // snow size
+        snowFlakesLayout.setImageResourceID(R.drawable.snow_flakes_pic);
+        snowFlakesLayout.setEnableRandomCurving(true);
+        snowFlakesLayout.setEnableAlphaFade(true);
+        snowFlakesLayout.startSnowing();
     }
 
     // If the Activity is paused make sure to pause our thread

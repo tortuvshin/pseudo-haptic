@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import java.util.ArrayList;
@@ -29,10 +30,17 @@ public class MainView extends SurfaceView implements Runnable {
     int screenWidth;
     int screenHeight;
 
-    MainView(Context context, int screenWidth, int screenHeight) {
+    public MainView(Context context) {
         super(context);
-
         this.context = context;
+    }
+
+    public MainView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        this.context = context;
+    }
+
+    public void init(int screenWidth, int screenHeight) {
 
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
@@ -55,6 +63,7 @@ public class MainView extends SurfaceView implements Runnable {
                 screenHeight,
                 "snow",  70, 110, 1));
     }
+
 
     @Override
     public void run() {
@@ -125,5 +134,21 @@ public class MainView extends SurfaceView implements Runnable {
         running = true;
         gameThread = new Thread(this);
         gameThread.start();
+    }
+
+    public int getScreenWidth() {
+        return screenWidth;
+    }
+
+    public void setScreenWidth(int screenWidth) {
+        this.screenWidth = screenWidth;
+    }
+
+    public int getScreenHeight() {
+        return screenHeight;
+    }
+
+    public void setScreenHeight(int screenHeight) {
+        this.screenHeight = screenHeight;
     }
 }
