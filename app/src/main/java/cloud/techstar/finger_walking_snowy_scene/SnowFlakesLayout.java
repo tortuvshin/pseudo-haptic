@@ -20,9 +20,6 @@ import android.widget.RelativeLayout;
 
 import java.util.Random;
 
-/**
- * Created by User on 2016/12/6.
- */
 public class SnowFlakesLayout extends RelativeLayout {
     Context context;
     float height;
@@ -40,6 +37,7 @@ public class SnowFlakesLayout extends RelativeLayout {
     CountDownTimer mainCountdownSnowTimer;
     Random generator = new Random();
     Handler mHandler = new Handler();
+
     public SnowFlakesLayout(Context context) {
         super(context);
         this.context = context;
@@ -81,6 +79,7 @@ public class SnowFlakesLayout extends RelativeLayout {
     public void setGenerateSnowTiming(int generateSnowTiming) {
         this.generateSnowTiming = generateSnowTiming;
     }
+
     public void setRandomSnowSizeRange(int max, int min){
         shouldRandomSnowSize = true;
         this.snowMaxSize = max;
@@ -165,9 +164,10 @@ public class SnowFlakesLayout extends RelativeLayout {
             }
         }.start();
     }
+
     public void stopSnowing(){
         mainCountdownSnowTimer.cancel();
-        //Thanks to @byronshlin for the help on removing view when snowing stops
+
         mHandler.post(new Runnable() {
             @Override
             public void run() {

@@ -95,18 +95,8 @@ public class MainActivity extends Activity {
         snowFlakesLayout.setEnableRandomCurving(true);
         snowFlakesLayout.setEnableAlphaFade(true);
         snowFlakesLayout.startSnowing();
-
-
-
     }
-    public int getStatusBarHeight() {
-        int result = 0;
-        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            result = getResources().getDimensionPixelSize(resourceId);
-        }
-        return result;
-    }
+
     // If the Activity is paused make sure to pause our thread
     @Override
     protected void onPause() {
@@ -119,5 +109,14 @@ public class MainActivity extends Activity {
     protected void onResume() {
         super.onResume();
         mainView.resume();
+    }
+
+    public int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
     }
 }
