@@ -8,6 +8,9 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.view.ViewGroup;
+
 import java.util.ArrayList;
 
 public class MainView extends SurfaceView implements Runnable {
@@ -75,8 +78,7 @@ public class MainView extends SurfaceView implements Runnable {
 
         }
     }
-
-    public void update(float fps) {
+      public void update(float fps) {
         // Background-ийн байршлыг өөрчлөх
         for (Background bg : backgrounds) {
             bg.update(fps);

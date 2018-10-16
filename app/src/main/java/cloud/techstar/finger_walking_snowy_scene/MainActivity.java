@@ -5,22 +5,30 @@ import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 public class MainActivity extends Activity {
 
     // Our object to handle the View
+    int clickCount;
     private MainView mainView;
     private TreeLayout treeView;
+    private ConstraintLayout rootView;
     private float y; // Y тэнхлэгт эхлээд хаана хүрсэн
     private float dy; // Y тэнхлэгт дараа нь хаана хүрч утга нь өөрчлөгдсөн
     private float x; // X тэнхлэгт эхлээд хаана хүрсэн
     private float dx; // X тэнхлэгт дараа нь хаана хүрч утга нь өөрчлөгдсөн
+    private int Position_X;
+    private int Position_Y;
+
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -31,7 +39,7 @@ public class MainActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        // Дэлгэцийн мэдээллийг харахын тулд Дэлгэцийн объект үүсгэх
+        //        // Дэлгэцийн мэдээллийг харахын тулд Дэлгэцийн объект үүсгэх
         Display display = getWindowManager().getDefaultDisplay();
 
         // Resolution буюу тухайн төхөөрөмжийн дэлгэцийн хэмжээг Point обьект болгох
@@ -39,29 +47,36 @@ public class MainActivity extends Activity {
         display.getSize(resolution);
 
         setContentView(R.layout.activity_main);
-
         mainView = (MainView)findViewById(R.id.main_view);
+        rootView = (ConstraintLayout)findViewById(R.id.rootView) ;
 
         Log.e("SIZE",""+resolution.x);
         mainView.init(resolution.x, resolution.y + getStatusBarHeight());
         treeView = (TreeLayout) findViewById(R.id.tree);
         treeView.init(500, 500);
 
-
-
-
         mainView.setOnTouchListener(new View.OnTouchListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
-                switch (event.getAction()) {
+                final int rawX = (int) event.getRawX();
+                final int rawY = (int) event.getRawY();
+
+                int pointerCount = event.getPointerCount();
+                switch (event.getAction() & MotionEvent.ACTION_MASK) {
+
 
                     case MotionEvent.ACTION_DOWN: {
+
                         y = event.getY(); // А
                         dy = y - mainView.getY(); //
                         x = event.getX();
                         dx = x - mainView.getX();
+                        ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) v.getLayoutParams();
+                        Position_X = rawX - layoutParams.leftMargin;
+                        Position_Y = rawY - layoutParams.topMargin;
+
                     }
                     break;
                     case MotionEvent.ACTION_MOVE: {
@@ -72,7 +87,9 @@ public class MainActivity extends Activity {
                                 "\nCURRENT VALUE: Y "+ event.getY()+ " X "+event.getX()+
                                 "\nCHANGED VALUE: Y "+ (event.getY()-dy) + " X "+(event.getX() - dx));
 
-
+                        if (pointerCount == 1){
+                            addFootPrint(x,y); // Доор бичцэн функцээ энд дуудаад ажиллуулж байна.
+                        }
                     }
                     break;
                     case MotionEvent.ACTION_UP: {
@@ -80,6 +97,8 @@ public class MainActivity extends Activity {
                     }
                     return true;
                 }
+
+                rootView.invalidate();
                 return true;
             }
 
@@ -118,5 +137,18 @@ public class MainActivity extends Activity {
             result = getResources().getDimensionPixelSize(resourceId);
         }
         return result;
+    }
+
+    public void addFootPrint(float x, float y){
+
+        final ImageView iv = new ImageView(this);
+            iv.setImageResource(R.drawable.image);
+
+        ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(150, 150);
+        iv.setX(x);
+        iv.setY(y);
+        iv.setLayoutParams(layoutParams);
+        rootView.addView(iv, layoutParams);
+
     }
 }
