@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.graphics.Point;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
@@ -23,7 +24,7 @@ import android.os.Vibrator;
 public class MainActivity extends Activity {
 
     // Our object to handle the View
-    int clickCount;
+    boolean touchCounter = false;
 
     private MainView mainView;
     private TreeLayout treeView;
@@ -61,8 +62,9 @@ public class MainActivity extends Activity {
         mainView.init(resolution.x, resolution.y + getStatusBarHeight());
         treeView = (TreeLayout) findViewById(R.id.tree);
         treeView.init(500, 500);
-
+        final MediaPlayer mp = MediaPlayer.create(this, R.raw.snow);
         mainView.setOnTouchListener(new View.OnTouchListener() {
+
             @RequiresApi(api = Build.VERSION_CODES.O)
             @SuppressLint("SetTextI18n")
             @Override
@@ -70,49 +72,57 @@ public class MainActivity extends Activity {
 
                 final int rawX = (int) event.getRawX();
                 final int rawY = (int) event.getRawY();
-
-                int pointerCount = event.getPointerCount();
-                switch (event.getAction() & MotionEvent.ACTION_MASK) {
+                    switch (event.getAction() & MotionEvent.ACTION_MASK) {
 
 
-                    case MotionEvent.ACTION_DOWN: {
+                        case MotionEvent.ACTION_DOWN: {
 
-                        y = event.getY(); // А
-                        dy = y - mainView.getY(); //
-                        x = event.getX();
-                        dx = x - mainView.getX();
-                        ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) v.getLayoutParams();
-                        Position_X = rawX - layoutParams.leftMargin;
-                        Position_Y = rawY - layoutParams.topMargin;
+                            y = event.getY(); // А
+                            dy = y - mainView.getY(); //
+                            x = event.getX();
+                            dx = x - mainView.getX();
+                            ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) v.getLayoutParams();
+                            Position_X = rawX - layoutParams.leftMargin;
+                            Position_Y = rawY - layoutParams.topMargin;
 
+                        }
+                        break;
+                        case MotionEvent.ACTION_MOVE: {
+                            //                        mainView.update(event.getX() - dx);
+
+                            Log.d("", "BEFORE VALUE:  Y " + y + " X " + x +
+                                    "\nCURRENT VALUE: Y " + event.getY() + " X " + event.getX() +
+                                    "\nCHANGED VALUE: Y " + (event.getY() - dy) + " X " + (event.getX() - dx));
+                            if (touchCounter == false) {
+                        /*    if (pointerCount == 1){
+                                addFootPrint(x,y); // Доор бичцэн функцээ энд дуудаад ажиллуулж байна.
+
+                            }*/
+                                mp.start();
+                                vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+                                vibrator.vibrate(50);
+                                touchCounter = true;
+                            }
+
+                            treeView.update(80);
+                            mainView.update(50);
+
+                        }
+
+                        case MotionEvent.ACTION_UP: {
+                            //your stuff
+                        }
+
+                        return true;
                     }
-                    break;
-                    case MotionEvent.ACTION_MOVE: {
-//                        mainView.update(event.getX() - dx);
-                        treeView.update(80);
-                        mainView.update(40);
-                        Log.d("", "BEFORE VALUE:  Y "+y +" X "+x +
-                                "\nCURRENT VALUE: Y "+ event.getY()+ " X "+event.getX()+
-                                "\nCHANGED VALUE: Y "+ (event.getY()-dy) + " X "+(event.getX() - dx));
 
-                    /*    if (pointerCount == 1){
-                            addFootPrint(x,y); // Доор бичцэн функцээ энд дуудаад ажиллуулж байна.
-                        }*/
-
-                        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-                        vibrator.vibrate(50);
-
-                    }
-                    break;
-                    case MotionEvent.ACTION_UP: {
-                        //your stuff
-                    }
+                    rootView.invalidate();
+                    touchCounter = false;
                     return true;
+
                 }
 
-                rootView.invalidate();
-                return true;
-            }
+
 
         });
 
