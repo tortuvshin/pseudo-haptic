@@ -2,9 +2,13 @@ package cloud.techstar.finger_walking_snowy_scene;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.graphics.Point;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.support.annotation.RequiresApi;
 import android.support.constraint.ConstraintLayout;
 import android.util.Log;
 import android.view.Display;
@@ -14,11 +18,13 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.os.Vibrator;
 
 public class MainActivity extends Activity {
 
     // Our object to handle the View
     int clickCount;
+
     private MainView mainView;
     private TreeLayout treeView;
     private ConstraintLayout rootView;
@@ -28,6 +34,7 @@ public class MainActivity extends Activity {
     private float dx; // X тэнхлэгт дараа нь хаана хүрч утга нь өөрчлөгдсөн
     private int Position_X;
     private int Position_Y;
+    Vibrator vibrator;
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -56,6 +63,7 @@ public class MainActivity extends Activity {
         treeView.init(500, 500);
 
         mainView.setOnTouchListener(new View.OnTouchListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @SuppressLint("SetTextI18n")
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -87,9 +95,13 @@ public class MainActivity extends Activity {
                                 "\nCURRENT VALUE: Y "+ event.getY()+ " X "+event.getX()+
                                 "\nCHANGED VALUE: Y "+ (event.getY()-dy) + " X "+(event.getX() - dx));
 
-                        if (pointerCount == 1){
+                    /*    if (pointerCount == 1){
                             addFootPrint(x,y); // Доор бичцэн функцээ энд дуудаад ажиллуулж байна.
-                        }
+                        }*/
+
+                        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+                        vibrator.vibrate(50);
+
                     }
                     break;
                     case MotionEvent.ACTION_UP: {
@@ -104,6 +116,7 @@ public class MainActivity extends Activity {
 
         });
 
+
         SnowFlakesLayout snowFlakesLayout = (SnowFlakesLayout)findViewById(R.id.snow_flake);
         snowFlakesLayout.init();
         snowFlakesLayout.setWholeAnimateTiming(3000000);
@@ -114,6 +127,8 @@ public class MainActivity extends Activity {
         snowFlakesLayout.setEnableRandomCurving(true);
         snowFlakesLayout.setEnableAlphaFade(true);
         snowFlakesLayout.startSnowing();
+
+
     }
 
     // If the Activity is paused make sure to pause our thread
@@ -139,7 +154,7 @@ public class MainActivity extends Activity {
         return result;
     }
 
-    public void addFootPrint(float x, float y){
+    /* public void addFootPrint(float x, float y){
 
         final ImageView iv = new ImageView(this);
             iv.setImageResource(R.drawable.image);
@@ -147,8 +162,9 @@ public class MainActivity extends Activity {
         ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(150, 150);
         iv.setX(x);
         iv.setY(y);
+        iv.setRotation(270);
         iv.setLayoutParams(layoutParams);
         rootView.addView(iv, layoutParams);
 
-    }
+    }*/
 }
