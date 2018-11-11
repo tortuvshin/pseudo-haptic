@@ -1,6 +1,8 @@
 package cloud.techstar.finger_walking_snowy_scene;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -8,8 +10,6 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
-import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
@@ -25,6 +25,8 @@ public class MainView extends SurfaceView implements Runnable {
     private SurfaceHolder ourHolder;
 
     Context context;
+
+    private float mLeft, mTop;
 
     // Өөрчлөх хэмжээс
     static float fps = 0;
@@ -78,7 +80,8 @@ public class MainView extends SurfaceView implements Runnable {
 
         }
     }
-      public void update(float fps) {
+
+    public void update(float fps) {
         // Background-ийн байршлыг өөрчлөх
         for (Background bg : backgrounds) {
             bg.update(fps);
@@ -94,6 +97,9 @@ public class MainView extends SurfaceView implements Runnable {
             canvas.drawColor(Color.argb(255, 0, 3, 70));
 
             drawBackground(0);
+
+            Bitmap mur  = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.image), 120, 120, false);
+            canvas.drawBitmap(mur, getmLeft(), getmTop(), paint);
 
             ourHolder.unlockCanvasAndPost(canvas);
         }
@@ -119,7 +125,6 @@ public class MainView extends SurfaceView implements Runnable {
             canvas.drawBitmap(bg.bitmap, fromRect2, toRect2, paint);
             canvas.drawBitmap(bg.bitmapReversed, fromRect1, toRect1, paint);
         }
-
     }
 
     public void pause() {
@@ -151,5 +156,25 @@ public class MainView extends SurfaceView implements Runnable {
 
     public void setScreenHeight(int screenHeight) {
         this.screenHeight = screenHeight;
+    }
+
+    public Canvas getCanvas() {
+        return canvas;
+    }
+
+    public float getmLeft() {
+        return mLeft;
+    }
+
+    public float getmTop() {
+        return mTop;
+    }
+
+    public void setmLeft(float mLeft) {
+        this.mLeft = mLeft;
+    }
+
+    public void setmTop(float mTop) {
+        this.mTop = mTop;
     }
 }

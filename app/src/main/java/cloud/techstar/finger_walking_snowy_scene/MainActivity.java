@@ -78,8 +78,6 @@ public class MainActivity extends Activity {
                 final int rawX = (int) event.getRawX();
                 final int rawY = (int) event.getRawY();
 
-
-
                     switch (event.getAction() & MotionEvent.ACTION_MASK) {
 
 
@@ -102,12 +100,12 @@ public class MainActivity extends Activity {
                             Log.d("", "BEFORE VALUE:  Y " + y + " X " + x +
                                     "\nCURRENT VALUE: Y " + event.getY() + " X " + event.getX() +
                                     "\nCHANGED VALUE: Y " + (event.getY() - dy) + " X " + (event.getX() - dx));
-                            if (touchCounter == false) {
-                           if (pointerCount == 1){
-                                addFootPrint(x,y); // Доор бичцэн функцээ энд дуудаад ажиллуулж байна.
-                           }
-
+                            if (!touchCounter) {
+//                                addFootPrint(x,y); // Доор бичцэн функцээ энд дуудаад ажиллуулж байна.
                                 mp.start();
+                                mainView.setmLeft(y);
+                                mainView.setmTop(x);
+//                                mainView.print(mainView.getCanvas(), x,y);
                                 vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
                                 vibrator.vibrate(50);
                                 touchCounter = true;
@@ -131,9 +129,6 @@ public class MainActivity extends Activity {
                     return true;
 
                 }
-
-
-
         });
 
 
@@ -147,8 +142,6 @@ public class MainActivity extends Activity {
         snowFlakesLayout.setEnableRandomCurving(true);
         snowFlakesLayout.setEnableAlphaFade(true);
         snowFlakesLayout.startSnowing();
-
-
     }
 
     // If the Activity is paused make sure to pause our thread
@@ -185,6 +178,5 @@ public class MainActivity extends Activity {
         iv.setRotation(270);
         iv.setLayoutParams(layoutParams);
         rootView.addView(iv, layoutParams);
-
-}
+    }
 }
