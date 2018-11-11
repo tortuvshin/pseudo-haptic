@@ -10,6 +10,6 @@
         android:layout_width="10000dp"
         android:layout_height="10000dp"
         android:scaleType="fitXY"
-        app:srcCompat="@drawable/snow" />
+        app:srcCompat="@mipmap/snow" />
 
 </com.qozix.widget.ScalingScrollView>
