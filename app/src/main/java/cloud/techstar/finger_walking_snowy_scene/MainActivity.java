@@ -23,12 +23,14 @@ import android.os.Vibrator;
 
 public class MainActivity extends Activity {
 
+    int clickCount;
+    private ConstraintLayout rootView;
+
     // Our object to handle the View
     boolean touchCounter = false;
 
     private MainView mainView;
     private TreeLayout treeView;
-    private ConstraintLayout rootView;
     private float y; // Y тэнхлэгт эхлээд хаана хүрсэн
     private float dy; // Y тэнхлэгт дараа нь хаана хүрч утга нь өөрчлөгдсөн
     private float x; // X тэнхлэгт эхлээд хаана хүрсэн
@@ -62,7 +64,10 @@ public class MainActivity extends Activity {
         mainView.init(resolution.x, resolution.y + getStatusBarHeight());
         treeView = (TreeLayout) findViewById(R.id.tree);
         treeView.init(500, 500);
+
         final MediaPlayer mp = MediaPlayer.create(this, R.raw.snow);
+
+        
         mainView.setOnTouchListener(new View.OnTouchListener() {
 
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -72,6 +77,9 @@ public class MainActivity extends Activity {
 
                 final int rawX = (int) event.getRawX();
                 final int rawY = (int) event.getRawY();
+
+
+
                     switch (event.getAction() & MotionEvent.ACTION_MASK) {
 
 
@@ -81,6 +89,7 @@ public class MainActivity extends Activity {
                             dy = y - mainView.getY(); //
                             x = event.getX();
                             dx = x - mainView.getX();
+
                             ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) v.getLayoutParams();
                             Position_X = rawX - layoutParams.leftMargin;
                             Position_Y = rawY - layoutParams.topMargin;
@@ -94,10 +103,10 @@ public class MainActivity extends Activity {
                                     "\nCURRENT VALUE: Y " + event.getY() + " X " + event.getX() +
                                     "\nCHANGED VALUE: Y " + (event.getY() - dy) + " X " + (event.getX() - dx));
                             if (touchCounter == false) {
-                        /*    if (pointerCount == 1){
+                           if (pointerCount == 1){
                                 addFootPrint(x,y); // Доор бичцэн функцээ энд дуудаад ажиллуулж байна.
+                           }
 
-                            }*/
                                 mp.start();
                                 vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
                                 vibrator.vibrate(50);
@@ -113,6 +122,7 @@ public class MainActivity extends Activity {
                             //your stuff
                         }
 
+                        rootView.invalidate();
                         return true;
                     }
 
@@ -164,7 +174,7 @@ public class MainActivity extends Activity {
         return result;
     }
 
-    /* public void addFootPrint(float x, float y){
+    public void addFootPrint(float x, float y){
 
         final ImageView iv = new ImageView(this);
             iv.setImageResource(R.drawable.image);
@@ -176,5 +186,5 @@ public class MainActivity extends Activity {
         iv.setLayoutParams(layoutParams);
         rootView.addView(iv, layoutParams);
 
-    }*/
+}
 }
