@@ -67,7 +67,7 @@ public class MainActivity extends Activity {
 
         final MediaPlayer mp = MediaPlayer.create(this, R.raw.snow);
 
-        
+
         mainView.setOnTouchListener(new View.OnTouchListener() {
 
             @RequiresApi(api = Build.VERSION_CODES.O)
