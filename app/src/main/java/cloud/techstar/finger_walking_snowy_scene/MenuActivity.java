@@ -16,8 +16,14 @@ public class MenuActivity extends AppCompatActivity {
         CardView experiment1 = findViewById(R.id.experiment1);
         CardView experiment2 = findViewById(R.id.experiment2);
 
+        CardView experiment3 = findViewById(R.id.web_exp);
 
-
+        experiment3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MenuActivity.this, WebAppActivity.class));
+            }
+        });
         experiment1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
