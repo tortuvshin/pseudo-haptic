@@ -18,7 +18,7 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".MainActivity" />
         <activity android:name=".MotionEventActivity" />
-        <activity android:name=".TileActivity"></activity>
+        <activity android:name=".TileActivity"/>
         <activity android:name=".MenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,7 +26,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".WebAppActivity"></activity>
+        <activity android:name=".WebAppActivity"
+            android:theme="@style/Fullscreen"/>
     </application>
 
 </manifest>
