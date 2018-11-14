@@ -15,10 +15,12 @@ public class TileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tile);
 
-        ScalingScrollView scalingScrollView = findViewById(R.id.scalingscrollview);
-        scalingScrollView.setScaleLimits(0, 1);
-        scalingScrollView.setShouldLoopScale(true);
-        scalingScrollView.setShouldVisuallyScaleContents(true);
+        TileView tileView = findViewById(R.id.tileview);
+        new TileView.Builder(tileView)
+                .setSize(1000, 1000)
+                .defineZoomLevel("snow/snow-%1$d-%1$d.jpg")
+                .build();
+
 
     }
 }
