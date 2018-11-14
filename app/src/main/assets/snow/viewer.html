@@ -7,9 +7,35 @@
         background-image: url(snow.jpg);
         margin: 0;
         padding: 0;
-        width: 100000px;
-        height: 100000px;
+        width: 50000px;
+        height: 50000px;
     }
+
 </style>
 </body>
+<script>
+    scrollingElement = (document.scrollingElement || document.body);
+    scrollingElement.scrollTop = scrollingElement.scrollHeight/2;
+    scrollingElement.scrollLeft = scrollingElement.scrollWidth/2;
+
+    document.body.addEventListener("touchstart", touch);
+
+    function touch() {
+
+        var rect = document.body.getBoundingClientRect();
+        x = event.touches[0].clientX - rect.left;
+        y = event.touches[0].clientY - rect.top;
+
+        var div = document.createElement('div');
+        div.style.backgroundImage = "url('footprint.png')";
+        div.style.position = "absolute";
+        div.style.width = '54px';
+        div.style.height = '121px';
+        div.style.left = x+'px';
+        div.style.top = y+'px';
+        document.body.appendChild(div);
+        Android.soundStart();
+        Android.vibrationStart();
+    }
+</script>
 </html>
