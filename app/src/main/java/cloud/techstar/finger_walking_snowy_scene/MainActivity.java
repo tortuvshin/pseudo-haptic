@@ -101,7 +101,6 @@ public class MainActivity extends Activity {
                                     "\nCURRENT VALUE: Y " + event.getY() + " X " + event.getX() +
                                     "\nCHANGED VALUE: Y " + (event.getY() - dy) + " X " + (event.getX() - dx));
                             if (!touchCounter) {
-//                                addFootPrint(x,y); // Доор бичцэн функцээ энд дуудаад ажиллуулж байна.
                                 mp.start();
                                 mainView.setmLeft(y);
                                 mainView.setmTop(x);
