@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.res.AssetManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
@@ -24,26 +23,12 @@ public class WebAppActivity extends AppCompatActivity {
         WebSettings webSettings = myWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
-        myWebView.loadData(getHTMLData("snow/viewer.html"), "text/html", "UTF-8");
-    }
+        String folderPath = "file:android_asset/";
 
-    private String getHTMLData(String fileName) {
-        StringBuilder html = new StringBuilder();
-        try {
-            AssetManager assetManager = getAssets();
+        String fileName = "snow/viewer.html";
 
-            InputStream input = assetManager.open(fileName);
-            BufferedReader br = new BufferedReader(new InputStreamReader(input));
-            String line;
-            while ((line = br.readLine()) != null) {
-                html.append(line);
-            }
-            br.close();
-        } catch (Exception e) {
-            //Handle the exception here
-            Log.e("ERROR: ", e.getMessage());
-        }
+        String file = folderPath + fileName;
 
-        return html.toString();
+        myWebView.loadUrl(file);
     }
 }
