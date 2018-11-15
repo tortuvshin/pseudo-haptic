@@ -26,7 +26,6 @@ import java.io.InputStreamReader;
 
 public class WebAppActivity extends AppCompatActivity {
 
-    boolean touchCounter = false;
     private Vibrator vibrator;
     private MediaPlayer mp;
     @SuppressLint({"SetJavaScriptEnabled", "ClickableViewAccessibility"})
@@ -48,8 +47,8 @@ public class WebAppActivity extends AppCompatActivity {
         snowFlakesLayout.init();
         snowFlakesLayout.setWholeAnimateTiming(3000000);
         snowFlakesLayout.setAnimateDuration(5000);
-        snowFlakesLayout.setGenerateSnowTiming(50);
-        snowFlakesLayout.setRandomSnowSizeRange(40, 1); // snow size
+        snowFlakesLayout.setGenerateSnowTiming(100);
+        snowFlakesLayout.setRandomSnowSizeRange(50, 10); // snow size
         snowFlakesLayout.setImageResourceID(R.drawable.snow_flakes_pic);
         snowFlakesLayout.setEnableRandomCurving(true);
         snowFlakesLayout.setEnableAlphaFade(true);
@@ -75,7 +74,7 @@ public class WebAppActivity extends AppCompatActivity {
 
         @JavascriptInterface
         public void vibrationStart(){
-            vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+            vibrator = (Vibrator) this.mContext.getSystemService(Context.VIBRATOR_SERVICE);
             assert vibrator != null;
             vibrator.vibrate(50);
         }

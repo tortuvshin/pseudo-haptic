@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WebAppActivity">
+    tools:context=".WebAppActivity"
+    tools:ignore="MissingDefaultResource">
 
     <WebView
         android:id="@+id/webview"
@@ -12,12 +14,10 @@
         android:layout_height="match_parent"
         />
 
-
     <cloud.techstar.finger_walking_snowy_scene.SnowFlakesLayout
         android:id="@+id/web_snow_flake"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </cloud.techstar.finger_walking_snowy_scene.SnowFlakesLayout>
-
 
 </android.support.constraint.ConstraintLayout>
