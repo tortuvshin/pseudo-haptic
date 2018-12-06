@@ -13,7 +13,7 @@
         var div = document.createElement('div');
         div.style.backgroundImage = "url('footprint.png')";
         div.style.position = "absolute";
-        div.style.width = '54px';
+        div.style.width = '52px';
         div.style.height = '121px';
         div.style.left = x+'px';
         div.style.top = y+'px';
