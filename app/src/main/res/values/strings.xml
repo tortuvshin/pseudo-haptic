@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Pseudo Haptic Technique</string>
+    <string name="cd_ratio">C/D ratio</string>
 </resources>

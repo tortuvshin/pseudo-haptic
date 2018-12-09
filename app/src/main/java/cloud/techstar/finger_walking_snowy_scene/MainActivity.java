@@ -17,9 +17,16 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.os.Vibrator;
+import android.widget.Spinner;
+
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 public class MainActivity extends Activity {
 
@@ -38,7 +45,7 @@ public class MainActivity extends Activity {
     private int Position_X;
     private int Position_Y;
     Vibrator vibrator;
-
+    private int cdRatioValue;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -62,11 +69,53 @@ public class MainActivity extends Activity {
 
         Log.e("SIZE",""+resolution.x);
         mainView.init(resolution.x, resolution.y + getStatusBarHeight());
-        treeView = (TreeLayout) findViewById(R.id.tree);
-        treeView.init(500, 500);
+
 
         final MediaPlayer mp = MediaPlayer.create(this, R.raw.snow);
 
+        Spinner ratioSpinner = findViewById(R.id.cd_ratio);
+
+        List<String> cdRatios = new LinkedList<>(Arrays.asList("C/D Ratio 0.5", "C/D Ratio 0.6", "C/D Ratio 0.7", "C/D Ratio 0.8","C/D Ratio 0.9","C/D Ratio 1"));
+        ArrayAdapter<String> ratioAdapter = new ArrayAdapter<String>(getApplicationContext(),
+                R.layout.spinner_item, cdRatios);
+        ratioAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ratioSpinner.setAdapter(ratioAdapter);
+
+        //i ni adapteriin utguudiin index 0.5_1 hurtel utguud ym.
+
+        ratioSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                switch (i){
+                    case 0 :
+                        cdRatioValue =50;
+                        break;
+                    case 1 :
+                        cdRatioValue =60;
+                        break;
+                    case 2 :
+                        cdRatioValue =70;
+                        break;
+                    case 3 :
+                        cdRatioValue =80;
+                        break;
+                    case 4 :
+                        cdRatioValue =90;
+                        break;
+                    case 5 :
+                        cdRatioValue =100;
+                        break;
+                    default:
+                        cdRatioValue =50;
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }ß
+        });
 
         mainView.setOnTouchListener(new View.OnTouchListener() {
 
@@ -101,17 +150,16 @@ public class MainActivity extends Activity {
                                     "\nCURRENT VALUE: Y " + event.getY() + " X " + event.getX() +
                                     "\nCHANGED VALUE: Y " + (event.getY() - dy) + " X " + (event.getX() - dx));
                             if (!touchCounter) {
-                                mp.start();
+                             //   mp.start();
                                 mainView.setmLeft(y);
                                 mainView.setmTop(x);
 //                                mainView.print(mainView.getCanvas(), x,y);
-                                vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-                                vibrator.vibrate(50);
+                             //   vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+                               // vibrator.vibrate(50);
                                 touchCounter = true;
                             }
 
-                            treeView.update(80);
-                            mainView.update(50);
+                            mainView.update(cdRatioValue);
 
                         }
 
@@ -131,16 +179,16 @@ public class MainActivity extends Activity {
         });
 
 
-        SnowFlakesLayout snowFlakesLayout = (SnowFlakesLayout)findViewById(R.id.snow_flake);
-        snowFlakesLayout.init();
-        snowFlakesLayout.setWholeAnimateTiming(3000000);
-        snowFlakesLayout.setAnimateDuration(5000);
-        snowFlakesLayout.setGenerateSnowTiming(50);
-        snowFlakesLayout.setRandomSnowSizeRange(40, 1); // snow size
-        snowFlakesLayout.setImageResourceID(R.drawable.snow_flakes_pic);
-        snowFlakesLayout.setEnableRandomCurving(true);
-        snowFlakesLayout.setEnableAlphaFade(true);
-        snowFlakesLayout.startSnowing();
+//        SnowFlakesLayout snowFlakesLayout = (SnowFlakesLayout)findViewById(R.id.snow_flake);
+//        snowFlakesLayout.init();
+//        snowFlakesLayout.setWholeAnimateTiming(3000000);
+//        snowFlakesLayout.setAnimateDuration(5000);
+//        snowFlakesLayout.setGenerateSnowTiming(50);
+//        snowFlakesLayout.setRandomSnowSizeRange(40, 1); // snow size
+//        snowFlakesLayout.setImageResourceID(R.drawable.snow_flakes_pic);
+//        snowFlakesLayout.setEnableRandomCurving(true);
+//        snowFlakesLayout.setEnableAlphaFade(true);
+//        snowFlakesLayout.startSnowing();
     }
 
     // If the Activity is paused make sure to pause our thread

@@ -60,13 +60,13 @@ public class MainView extends SurfaceView implements Runnable {
                 this.context,
                 screenWidth,
                 screenHeight,
-                "snow",  0, 100, 1));
+                "dt",  0, 100, 1));
 
         backgrounds.add(new Background(
                 this.context,
                 screenWidth,
                 screenHeight,
-                "snow",  70, 110, 1));
+                "dt",  70, 110, 1));
     }
 
     @Override
@@ -98,8 +98,8 @@ public class MainView extends SurfaceView implements Runnable {
 
             drawBackground(0);
 
-            Bitmap mur  = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.image), 120, 120, false);
-            canvas.drawBitmap(mur, getmLeft(), getmTop(), paint);
+          //  Bitmap mur  = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.image), 120, 120, false);
+            //canvas.drawBitmap(mur, getmLeft(), getmTop(), paint);
 
             ourHolder.unlockCanvasAndPost(canvas);
         }
