@@ -2,27 +2,17 @@ package cloud.techstar.finger_walking_snowy_scene;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.media.MediaPlayer;
-import android.os.Build;
 import android.os.Vibrator;
-import android.support.annotation.RequiresApi;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import cloud.techstar.finger_walking_snowy_scene.component.SnowFlakesLayout;
 
 public class WebAppActivity extends AppCompatActivity {
 
@@ -77,6 +67,12 @@ public class WebAppActivity extends AppCompatActivity {
             vibrator = (Vibrator) this.mContext.getSystemService(Context.VIBRATOR_SERVICE);
             assert vibrator != null;
             vibrator.vibrate(50);
+        }
+
+        @JavascriptInterface
+        public void logger(String message)
+        {
+            Log.d("WEBVIEW LOG: ", message);
         }
     }
 }

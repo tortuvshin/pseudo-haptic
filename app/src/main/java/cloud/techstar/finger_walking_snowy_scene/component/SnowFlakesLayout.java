@@ -1,4 +1,4 @@
-package cloud.techstar.finger_walking_snowy_scene;
+package cloud.techstar.finger_walking_snowy_scene.component;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -7,7 +7,6 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
@@ -19,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import java.util.Random;
+
+import cloud.techstar.finger_walking_snowy_scene.R;
 
 public class SnowFlakesLayout extends RelativeLayout {
     Context context;

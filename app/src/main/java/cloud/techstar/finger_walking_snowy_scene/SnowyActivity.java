@@ -2,13 +2,11 @@ package cloud.techstar.finger_walking_snowy_scene;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.graphics.Point;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.VibrationEffect;
 import android.support.annotation.RequiresApi;
 import android.support.constraint.ConstraintLayout;
 import android.util.Log;
@@ -20,7 +18,6 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.os.Vibrator;
 import android.widget.Spinner;
 
@@ -28,7 +25,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public class MainActivity extends Activity {
+public class SnowyActivity extends Activity {
 
     int clickCount;
     private ConstraintLayout rootView;
@@ -36,8 +33,7 @@ public class MainActivity extends Activity {
     // Our object to handle the View
     boolean touchCounter = false;
 
-    private MainView mainView;
-    private TreeLayout treeView;
+    private SnowySurface snowySurface;
     private float y; // Y тэнхлэгт эхлээд хаана хүрсэн
     private float dy; // Y тэнхлэгт дараа нь хаана хүрч утга нь өөрчлөгдсөн
     private float x; // X тэнхлэгт эхлээд хаана хүрсэн
@@ -64,11 +60,11 @@ public class MainActivity extends Activity {
         display.getSize(resolution);
 
         setContentView(R.layout.activity_main);
-        mainView = (MainView)findViewById(R.id.main_view);
+        snowySurface = (SnowySurface)findViewById(R.id.main_view);
         rootView = (ConstraintLayout)findViewById(R.id.rootView) ;
 
         Log.e("SIZE",""+resolution.x);
-        mainView.init(resolution.x, resolution.y + getStatusBarHeight());
+        snowySurface.init(resolution.x, resolution.y + getStatusBarHeight());
 
 
         final MediaPlayer mp = MediaPlayer.create(this, R.raw.snow);
@@ -88,25 +84,25 @@ public class MainActivity extends Activity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 switch (i){
                     case 0 :
-                        cdRatioValue =50;
+                        cdRatioValue =25;
                         break;
                     case 1 :
-                        cdRatioValue =60;
+                        cdRatioValue =30;
                         break;
                     case 2 :
-                        cdRatioValue =70;
+                        cdRatioValue =35;
                         break;
                     case 3 :
-                        cdRatioValue =80;
+                        cdRatioValue =40;
                         break;
                     case 4 :
-                        cdRatioValue =90;
+                        cdRatioValue =45;
                         break;
                     case 5 :
-                        cdRatioValue =100;
+                        cdRatioValue =50;
                         break;
                     default:
-                        cdRatioValue =50;
+                        cdRatioValue =25;
                         break;
                 }
             }
@@ -114,10 +110,10 @@ public class MainActivity extends Activity {
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
-            }ß
+            }
         });
 
-        mainView.setOnTouchListener(new View.OnTouchListener() {
+        snowySurface.setOnTouchListener(new View.OnTouchListener() {
 
             @RequiresApi(api = Build.VERSION_CODES.O)
             @SuppressLint("SetTextI18n")
@@ -133,9 +129,9 @@ public class MainActivity extends Activity {
                         case MotionEvent.ACTION_DOWN: {
 
                             y = event.getY(); // А
-                            dy = y - mainView.getY(); //
+                            dy = y - snowySurface.getY(); //
                             x = event.getX();
-                            dx = x - mainView.getX();
+                            dx = x - snowySurface.getX();
 
                             ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) v.getLayoutParams();
                             Position_X = rawX - layoutParams.leftMargin;
@@ -151,15 +147,15 @@ public class MainActivity extends Activity {
                                     "\nCHANGED VALUE: Y " + (event.getY() - dy) + " X " + (event.getX() - dx));
                             if (!touchCounter) {
                              //   mp.start();
-                                mainView.setmLeft(y);
-                                mainView.setmTop(x);
+                                snowySurface.setmLeft(y);
+                                snowySurface.setmTop(x);
 //                                mainView.print(mainView.getCanvas(), x,y);
                              //   vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
                                // vibrator.vibrate(50);
                                 touchCounter = true;
                             }
 
-                            mainView.update(cdRatioValue);
+                            snowySurface.update(cdRatioValue);
 
                         }
 
@@ -195,14 +191,14 @@ public class MainActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        mainView.pause();
+        snowySurface.pause();
     }
 
     // If the Activity is resumed make sure to resume our thread
     @Override
     protected void onResume() {
         super.onResume();
-        mainView.resume();
+        snowySurface.resume();
     }
 
     public int getStatusBarHeight() {

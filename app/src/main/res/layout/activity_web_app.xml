@@ -14,10 +14,10 @@
         android:layout_height="match_parent"
         />
 
-    <cloud.techstar.finger_walking_snowy_scene.SnowFlakesLayout
+    <cloud.techstar.finger_walking_snowy_scene.component.SnowFlakesLayout
         android:id="@+id/web_snow_flake"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </cloud.techstar.finger_walking_snowy_scene.SnowFlakesLayout>
+    </cloud.techstar.finger_walking_snowy_scene.component.SnowFlakesLayout>
 
 </android.support.constraint.ConstraintLayout>

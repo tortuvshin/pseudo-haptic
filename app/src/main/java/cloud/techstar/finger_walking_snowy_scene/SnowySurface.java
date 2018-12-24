@@ -1,6 +1,8 @@
 package cloud.techstar.finger_walking_snowy_scene;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -11,9 +13,9 @@ import android.view.SurfaceView;
 
 import java.util.ArrayList;
 
-public class TreeLayout extends SurfaceView implements Runnable {
+public class SnowySurface extends SurfaceView implements Runnable {
 
-    ArrayList<Background> backgrounds;
+    ArrayList<Background> backgrounds; //арын background уудын жагсаалт
 
     private volatile boolean running;
     private Thread gameThread = null;
@@ -24,20 +26,21 @@ public class TreeLayout extends SurfaceView implements Runnable {
 
     Context context;
 
+    private float mLeft, mTop;
+
     // Өөрчлөх хэмжээс
     static float fps = 0;
 
     // Дэлгэцийн хэмжээнүүд
     int screenWidth;
     int screenHeight;
-  //object-baigulagch ene classin.
 
-    public TreeLayout(Context context) {
+    public SnowySurface(Context context) {
         super(context);
         this.context = context;
     }
 
-    public TreeLayout(Context context, AttributeSet attrs) {
+    public SnowySurface(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
     }
@@ -57,13 +60,13 @@ public class TreeLayout extends SurfaceView implements Runnable {
                 this.context,
                 screenWidth,
                 screenHeight,
-                "tree",  0, 100, 1));
+                "dt",  0, 100, 1));
 
         backgrounds.add(new Background(
                 this.context,
                 screenWidth,
                 screenHeight,
-                "tree",  70, 110, 1));
+                "dt",  70, 110, 1));
     }
 
     @Override
@@ -95,6 +98,9 @@ public class TreeLayout extends SurfaceView implements Runnable {
 
             drawBackground(0);
 
+          //  Bitmap mur  = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.image), 120, 120, false);
+            //canvas.drawBitmap(mur, getmLeft(), getmTop(), paint);
+
             ourHolder.unlockCanvasAndPost(canvas);
         }
     }
@@ -119,7 +125,6 @@ public class TreeLayout extends SurfaceView implements Runnable {
             canvas.drawBitmap(bg.bitmap, fromRect2, toRect2, paint);
             canvas.drawBitmap(bg.bitmapReversed, fromRect1, toRect1, paint);
         }
-
     }
 
     public void pause() {
@@ -151,5 +156,25 @@ public class TreeLayout extends SurfaceView implements Runnable {
 
     public void setScreenHeight(int screenHeight) {
         this.screenHeight = screenHeight;
+    }
+
+    public Canvas getCanvas() {
+        return canvas;
+    }
+
+    public float getmLeft() {
+        return mLeft;
+    }
+
+    public float getmTop() {
+        return mTop;
+    }
+
+    public void setmLeft(float mLeft) {
+        this.mLeft = mLeft;
+    }
+
+    public void setmTop(float mTop) {
+        this.mTop = mTop;
     }
 }

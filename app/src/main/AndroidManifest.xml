@@ -16,8 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".MainActivity" />
-        <activity android:name=".MotionEventActivity" />
+        <activity android:name=".SnowyActivity" />
         <activity android:name=".TileActivity"/>
         <activity android:name=".MenuActivity">
             <intent-filter>
