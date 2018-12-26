@@ -21,8 +21,7 @@
             android:id="@+id/experiment1"
             android:layout_width="160dp"
             android:layout_height="190dp"
-            android:layout_margin="10dp"
-            >
+            android:layout_margin="10dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -109,7 +108,7 @@
             android:layout_width="160dp"
             android:layout_height="190dp"
             android:layout_margin="10dp"
-            android:id="@+id/web_exp">
+            android:id="@+id/web_exp2">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
