@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="cloud.techstar.finger_walking_snowy_scene">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -17,7 +18,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".SnowyActivity" />
-        <activity android:name=".TileActivity"/>
+        <activity android:name=".TileActivity" />
         <activity android:name=".MenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,8 +26,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".WebAppActivity"
-            android:theme="@style/Fullscreen"/>
+        <activity
+            android:name=".WebAppActivity"
+            android:theme="@style/Fullscreen" />
+        <activity android:name=".SurveyActivity"></activity>
     </application>
 
 </manifest>

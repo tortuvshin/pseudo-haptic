@@ -3,13 +3,49 @@ scrollingElement = (document.scrollingElement || document.body);
 scrollingElement.scrollTop = scrollingElement.scrollHeight/2;
 scrollingElement.scrollLeft = scrollingElement.scrollWidth/2;
 
-document.body.addEventListener("touchstart", createFootPrint);
+//var startPageX;
+//var startPageY;
+//var startScreenX;
+//var startScreenY;
+//var movedDistance;
+
+document.body.addEventListener('touchstart', function(e){
+//    var touchObj = e.changedTouches[0] // reference first touch point (ie: first finger)
+//    startScreenX = touchObj.clientX
+//    startScreenY = touchObj.clientY // get position of touch point relative to left edge of browser
+      createFootPrint()
+//    e.preventDefault()
+//
+//    startPageX = touchObj.pageX;
+//    startPageY = touchObj.pageY;
+//
+//    console.log("clientX coords: X: " + startScreenX + ", Y: " + startScreenX + " pageX coords: X: " + startPageX + ", Y: " + startPageY);
+
+}, false)
+
+//
+//document.body.addEventListener('touchmove', function(e){
+//    var touchObj = e.changedTouches[0] // reference first touch point for this event
+//    movedDistance = touchObj.clientY - startScreenY
+//    e.preventDefault()
+//}, false)
+//
+//document.body.addEventListener('touchend', function(e){
+//    var touchObj = e.changedTouches[0] // reference first touch point for this eventx
+//
+//    console.log("POSITIONS: "+ "X : "+startScreenX+ ", Y: "+startScreenY+ ", Moved: "+movedDistance);
+//
+//    window.scrollTo(0, touchObj.pageY);
+//    console.log("Changed positions: X: " + startPageY + ", Now X: " + touchObj.pageY + ", Moved X: " + (touchObj.pageY-startPageY));
+//
+//    e.preventDefault()
+//}, false)
 
 // Touch хийсэн газар хөлийн мөр харуулах
 function createFootPrint() {
 
     var rect = document.body.getBoundingClientRect();
-    x = event.touches[0].clientX - rect.left;
+    x = event.touches[0].pageX;
     y = event.touches[0].clientY - rect.top;
 
     var div = document.createElement('div');
@@ -25,18 +61,125 @@ function createFootPrint() {
     Android.vibrationStart();
 }
 
-var lastScrollTop = scrollingElement.scrollHeight/2;
-// element should be replaced with the actual target element on which you have applied scroll, use window in case of no target element.
-element.addEventListener("scroll", function(){ // or window.addEventListener("scroll"....
-   var st = window.pageYOffset || document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
-   if (st > lastScrollTop){
-      // downscroll code
-      Android.logger("Down scrolled+ "+lastScrollTop - st);
-   } else {
-      // upscroll code
+var checkScrollSpeed = (function(settings){
+    settings = settings || {};
 
-      Android.logger("Un scrolled+ "+lastScrollTop - st);
-   }
-   lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
-}, false);
+    var lastPos, newPos, timer, delta,
+        delay = settings.delay || 50; // in "ms" (higher means lower fidelity )
 
+    function clear() {
+      lastPos = null;
+      delta = 0;
+    }
+
+    clear();
+
+    return function(){
+      newPos = window.scrollY;
+      if ( lastPos != null ){ // && newPos < maxScroll
+        delta = newPos -  lastPos;
+      }
+      lastPos = newPos;
+      clearTimeout(timer);
+      timer = setTimeout(clear, delay);
+      return delta;
+    };
+})();
+
+// listen to "scroll" event
+window.onscroll = function(){
+    checkScrollSpeed()
+    console.log( checkScrollSpeed() );
+};
+
+jQuery.scrollSpeed = function(step, speed, easing) {
+
+    var $document = $(document),
+        $window = $(window),
+        $body = $('html, body'),
+        option = easing || 'default',
+        root = 0,
+        scroll = false,
+        scrollY,
+        scrollX,
+        view;
+
+    if (window.navigator.msPointerEnabled)
+
+        return false;
+
+    $window.on('mousewheel DOMMouseScroll', function(e) {
+
+        var deltaY = e.originalEvent.wheelDeltaY,
+            detail = e.originalEvent.detail;
+            scrollY = $document.height() > $window.height();
+            scrollX = $document.width() > $window.width();
+            scroll = true;
+
+        if (scrollY) {
+
+            view = $window.height();
+
+            if (deltaY < 0 || detail > 0)
+
+                root = (root + view) >= $document.height() ? root : root += step;
+
+            if (deltaY > 0 || detail < 0)
+
+                root = root <= 0 ? 0 : root -= step;
+
+            $body.stop().animate({
+
+                scrollTop: root
+
+            }, speed, option, function() {
+
+                scroll = false;
+
+            });
+        }
+
+        if (scrollX) {
+
+            view = $window.width();
+
+            if (deltaY < 0 || detail > 0)
+
+                root = (root + view) >= $document.width() ? root : root += step;
+
+            if (deltaY > 0 || detail < 0)
+
+                root = root <= 0 ? 0 : root -= step;
+
+            $body.stop().animate({
+
+                scrollLeft: root
+
+            }, speed, option, function() {
+
+                scroll = false;
+
+            });
+        }
+
+        return false;
+
+    }).on('scroll', function() {
+
+        if (scrollY && !scroll) root = $window.scrollTop();
+        if (scrollX && !scroll) root = $window.scrollLeft();
+
+    }).on('resize', function() {
+
+        if (scrollY && !scroll) view = $window.height();
+        if (scrollX && !scroll) view = $window.width();
+
+    });
+};
+
+jQuery.easing.default = function (x,t,b,c,d) {
+
+    return -c * ((t=t/d-1)*t*t*t - 1) + b;
+};
+
+jQuery.scrollSpeed(10, 10);

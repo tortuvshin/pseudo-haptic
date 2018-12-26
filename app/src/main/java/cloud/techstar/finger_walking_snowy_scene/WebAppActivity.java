@@ -25,7 +25,8 @@ public class WebAppActivity extends AppCompatActivity {
         setContentView(R.layout.activity_web_app);
 
         WebView myWebView = (WebView) findViewById(R.id.webview);
-
+        myWebView.setVerticalScrollBarEnabled(false);
+        myWebView.setHorizontalScrollBarEnabled(false);
         WebSettings webSettings = myWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         myWebView.addJavascriptInterface(new WebAppInterface(this), "Android");

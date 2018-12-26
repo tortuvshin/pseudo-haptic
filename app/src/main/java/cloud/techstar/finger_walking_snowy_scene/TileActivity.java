@@ -20,7 +20,5 @@ public class TileActivity extends AppCompatActivity {
                 .setSize(1000, 1000)
                 .defineZoomLevel("snow/snow-%1$d-%1$d.jpg")
                 .build();
-
-
     }
 }
