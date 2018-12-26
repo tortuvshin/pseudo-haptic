@@ -14,27 +14,27 @@ document.body.addEventListener('touchstart', function(e){
 //    startScreenX = touchObj.clientX
 //    startScreenY = touchObj.clientY // get position of touch point relative to left edge of browser
       createFootPrint()
-    e.preventDefault()
-//
-//    startPageX = touchObj.pageX;
-//    startPageY = touchObj.pageY;
-//
-//    console.log("clientX coords: X: " + startScreenX + ", Y: " + startScreenX + " pageX coords: X: " + startPageX + ", Y: " + startPageY);
-    forEachChangedFinger(e, function(x,y, id) {
-        createDiv(finger, id);
-        moveBox(id, e2);
-    });
+//    e.preventDefault()
+////
+////    startPageX = touchObj.pageX;
+////    startPageY = touchObj.pageY;
+////
+////    console.log("clientX coords: X: " + startScreenX + ", Y: " + startScreenX + " pageX coords: X: " + startPageX + ", Y: " + startPageY);
+//    forEachChangedFinger(e, function(x,y, id) {
+//        createDiv(finger, id);
+//        moveBox(id, e2);
+//    });
 })
 
 
 document.body.addEventListener('touchmove', function(e){
 //    var touchObj = e.changedTouches[0] // reference first touch point for this event
 //    movedDistance = touchObj.clientY - startScreenY
-    e.preventDefault(); // prevent page scroll
-
-    forEachChangedFinger(e, function(x,y, id) {
-        moveBox(id, x,y);
-    });
+//    e.preventDefault(); // prevent page scroll
+//
+//    forEachChangedFinger(e, function(x,y, id) {
+//        moveBox(id, x,y);
+//    });
 })
 
 document.body.addEventListener('touchend', function(e){
@@ -69,36 +69,36 @@ function createFootPrint() {
     Android.vibrationStart();
 }
 
-function forEachChangedFinger(e, cb) {
+//function forEachChangedFinger(e, cb) {
+//
+//    for (var i = 0; i < e.changedTouches.length; i++) {
+//        var finger = e.changedTouches[i];
+//        var x = event.touches[i].pageX;
+//        var y = event.touches[i].pageY;
+//        var id = finger.identifier;
+//        cb(finger, id);
+//    }
+//}
 
-    for (var i = 0; i < e.changedTouches.length; i++) {
-        var finger = e.changedTouches[i];
-        var x = event.touches[i].pageX;
-        var y = event.touches[i].pageY;
-        var id = finger.identifier;
-        cb(finger, id);
-    }
-}
-
-function createDiv(finger,id) {
-    var div = document.createElement('div');
-    div.style.backgroundImage = "url('footprint.png')";
-    div.style.position = "absolute";
-    div.style.width = '52px';
-    div.style.height = '121px';
-    div.style.left = finger.pageX+'px';
-    div.style.top = finger.pageY+'px';
-    div.id(id);
-    document.body.appendChild(div);
-}
-function moveBox(id, x,y) {
-    var div = $("#"+id);
-    var off = $("body").offset();
-    // offset box a little so it can be seen under a finger!
-    var a = x - off.left - 35;
-    var b = y - off.top - 35;
-    div.css({"left":a, "top":b});
-}
+//function createDiv(finger,id) {
+//    var div = document.createElement('div');
+//    div.style.backgroundImage = "url('footprint.png')";
+//    div.style.position = "absolute";
+//    div.style.width = '52px';
+//    div.style.height = '121px';
+//    div.style.left = finger.pageX+'px';
+//    div.style.top = finger.pageY+'px';
+//    div.id(id);
+//    document.body.appendChild(div);
+//}
+//function moveBox(id, x,y) {
+//    var div = $("#"+id);
+//    var off = $("body").offset();
+//    // offset box a little so it can be seen under a finger!
+//    var a = x - off.left - 35;
+//    var b = y - off.top - 35;
+//    div.css({"left":a, "top":b});
+//}
 var checkScrollSpeed = (function(settings){
     settings = settings || {};
 
