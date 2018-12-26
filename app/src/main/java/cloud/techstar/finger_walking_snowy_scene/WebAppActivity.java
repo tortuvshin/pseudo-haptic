@@ -7,10 +7,18 @@ import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
+
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 import cloud.techstar.finger_walking_snowy_scene.component.SnowFlakesLayout;
 
@@ -18,6 +26,8 @@ public class WebAppActivity extends AppCompatActivity {
 
     private Vibrator vibrator;
     private MediaPlayer mp;
+    private int cdRatioValue;
+
     @SuppressLint({"SetJavaScriptEnabled", "ClickableViewAccessibility"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +54,51 @@ public class WebAppActivity extends AppCompatActivity {
         snowFlakesLayout.setEnableRandomCurving(true);
         snowFlakesLayout.setEnableAlphaFade(true);
         snowFlakesLayout.startSnowing();
+
+
+        Spinner ratioSpinner = findViewById(R.id.ratio_spinner);
+
+        List<String> cdRatios = new LinkedList<>(Arrays.asList("C/D Ratio 0.5", "C/D Ratio 0.6", "C/D Ratio 0.7", "C/D Ratio 0.8","C/D Ratio 0.9","C/D Ratio 1"));
+        ArrayAdapter<String> ratioAdapter = new ArrayAdapter<String>(getApplicationContext(),
+                R.layout.spinner_item, cdRatios);
+        ratioAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ratioSpinner.setAdapter(ratioAdapter);
+
+        //i ni adapteriin utguudiin index 0.5_1 hurtel utguud ym.
+
+        ratioSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                switch (i){
+                    case 0 :
+                        cdRatioValue =25;
+                        break;
+                    case 1 :
+                        cdRatioValue =30;
+                        break;
+                    case 2 :
+                        cdRatioValue =35;
+                        break;
+                    case 3 :
+                        cdRatioValue =40;
+                        break;
+                    case 4 :
+                        cdRatioValue =45;
+                        break;
+                    case 5 :
+                        cdRatioValue =50;
+                        break;
+                    default:
+                        cdRatioValue =25;
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     public class WebAppInterface {
