@@ -109,7 +109,7 @@
             android:layout_width="160dp"
             android:layout_height="190dp"
             android:layout_margin="10dp"
-            android:id="@+id/web_exp">
+            android:id="@+id/web_exp2">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -187,4 +187,9 @@
         </android.support.v7.widget.CardView>
 
     </LinearLayout>
+    <cloud.techstar.finger_walking_snowy_scene.SnowFlakesLayout
+        android:id="@+id/snow_menuflake"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </cloud.techstar.finger_walking_snowy_scene.SnowFlakesLayout>
 </LinearLayout>

@@ -20,7 +20,7 @@ public class MenuActivity extends AppCompatActivity {
         CardView experiment1 = findViewById(R.id.experiment1);
         CardView experiment2 = findViewById(R.id.experiment2);
 
-        CardView experiment3 = findViewById(R.id.web_exp);
+        CardView experiment3 = findViewById(R.id.web_exp2);
 
         experiment3.setOnClickListener(new View.OnClickListener() {
             @Override
