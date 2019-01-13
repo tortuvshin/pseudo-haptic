@@ -3,6 +3,7 @@ package cloud.techstar.finger_walking_snowy_scene;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -41,6 +42,16 @@ public class WebAppActivity extends AppCompatActivity {
         webSettings.setJavaScriptEnabled(true);
         myWebView.addJavascriptInterface(new WebAppInterface(this), "Android");
         myWebView.loadUrl("file:android_asset/snow/viewer.html");
+        myWebView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
+
+        myWebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            // chromium, enable hardware acceleration
+            myWebView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+        } else {
+            // older android version, disable hardware acceleration
+            myWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        }
 
         mp = MediaPlayer.create(this, R.raw.snow);
 
@@ -69,22 +80,22 @@ public class WebAppActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 switch (i){
                     case 0 :
-                        cdRatioValue = 2.0;
+                        cdRatioValue = 2.0; // cd ratio 0.5
                         break;
                     case 1 :
-                        cdRatioValue = 1.66;
+                        cdRatioValue = 1.66; // cd ratio 0.6
                         break;
                     case 2 :
-                        cdRatioValue = 1.42;
+                        cdRatioValue = 1.42; // cd ratio 0.7
                         break;
                     case 3 :
-                        cdRatioValue = 1.25;
+                        cdRatioValue = 1.25; // cd ratio 0.8
                         break;
                     case 4 :
-                        cdRatioValue = 1.11;
+                        cdRatioValue = 1.11; // cd ratio 0.9
                         break;
                     case 5 :
-                        cdRatioValue = 1.0;
+                        cdRatioValue = 1.0; // cd ratio 1.0
                         break;
                     default:
                         cdRatioValue = 25;
