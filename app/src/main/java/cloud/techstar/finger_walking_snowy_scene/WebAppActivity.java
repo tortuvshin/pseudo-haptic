@@ -26,7 +26,7 @@ public class WebAppActivity extends AppCompatActivity {
 
     private Vibrator vibrator;
     private MediaPlayer mp;
-    private int cdRatioValue;
+    private double cdRatioValue;
 
     @SuppressLint({"SetJavaScriptEnabled", "ClickableViewAccessibility"})
     @Override
@@ -64,33 +64,38 @@ public class WebAppActivity extends AppCompatActivity {
         ratioAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         ratioSpinner.setAdapter(ratioAdapter);
 
-        //i ni adapteriin utguudiin index 0.5_1 hurtel utguud ym.
-
         ratioSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 switch (i){
                     case 0 :
-                        cdRatioValue =25;
+                        cdRatioValue = 2.0;
                         break;
                     case 1 :
-                        cdRatioValue =30;
+                        cdRatioValue = 1.66;
                         break;
                     case 2 :
-                        cdRatioValue =35;
+                        cdRatioValue = 1.42;
                         break;
                     case 3 :
-                        cdRatioValue =40;
+                        cdRatioValue = 1.25;
                         break;
                     case 4 :
-                        cdRatioValue =45;
+                        cdRatioValue = 1.11;
                         break;
                     case 5 :
-                        cdRatioValue =50;
+                        cdRatioValue = 1.0;
                         break;
                     default:
-                        cdRatioValue =25;
+                        cdRatioValue = 25;
                         break;
+                }
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+                    myWebView.evaluateJavascript("javascript: " +
+                                    "setCdRatio(\"" + cdRatioValue + "\")",
+                            null);
+                } else {
+                    myWebView.loadUrl("javascript:setCdRatio('"+cdRatioValue+"');");
                 }
             }
 

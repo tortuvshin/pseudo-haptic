@@ -34,6 +34,10 @@ var view, relative,
 
     view.style[xform] = 'translateY(30000px)';
 
+function setCdRatio(value){
+    cdRatio = value;
+}
+
 function ypos(e) {
     // touch event
     if (e.targetTouches && (e.targetTouches.length >= 1)) {
@@ -62,7 +66,7 @@ function drag(e) {
     var y, delta;
     if (pressed) {
         y = ypos(e);
-        delta = (reference - y) / 2 ;
+        delta = (reference - y) / cdRatio ;
         if (delta > 2 || delta < -2) {
             reference = y;
             scroll(offset + delta);
@@ -92,6 +96,7 @@ view.addEventListener('mouseup', release, {passive: false} );
 max = parseInt(getComputedStyle(view).height, 10) - innerHeight;
 min = 0;
 offset = 20000;
+cdRatio = 1
 console.log(max);
 pressed = false;
 
