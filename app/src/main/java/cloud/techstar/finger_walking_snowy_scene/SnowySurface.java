@@ -60,13 +60,13 @@ public class SnowySurface extends SurfaceView implements Runnable {
                 this.context,
                 screenWidth,
                 screenHeight,
-                "dt",  0, 100, 1));
+                "snow",  0, 100, 1));
 
         backgrounds.add(new Background(
                 this.context,
                 screenWidth,
                 screenHeight,
-                "dt",  70, 110, 1));
+                "snow",  70, 110, 1));
     }
 
     @Override
