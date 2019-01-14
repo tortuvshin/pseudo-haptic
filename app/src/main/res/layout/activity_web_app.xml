@@ -25,6 +25,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:textSize="30sp"
         android:background="@color/black_overlay"
         android:prompt="@string/cd_ratio"
         android:spinnerMode="dropdown" />
