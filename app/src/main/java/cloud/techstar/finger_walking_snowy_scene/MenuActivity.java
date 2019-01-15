@@ -28,7 +28,7 @@ public class MenuActivity extends AppCompatActivity {
                 startActivity(new Intent(MenuActivity.this, WebAppActivity.class));
             }
         });
-        
+
         experiment1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
