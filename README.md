@@ -1,7 +1,5 @@
 # Pseudo-haptic Technique on Touchpad
 
-[![StackShare](https://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](https://stackshare.io/tortuvshin/intelligo-game)
-
 Finger Walking in Snowy Scene using Pseudo-haptic Technique on Touchpad.
 
 In this project, Aim to provide users with a pseudo-haptic sensation using a conventional touch panel through a background image instead of a pointer as visual feedback.
@@ -28,7 +26,7 @@ or translating any document here to your language. [Find more information in CON
 
 ## License
 
-Intelligo game is open-sourced software licensed under the [MIT](LICENSE).
+In this project open-sourced software licensed under the [MIT](LICENSE).
 
 **[⬆ back to top](#pseudo-haptic-technique-on-touchpad)**
 
