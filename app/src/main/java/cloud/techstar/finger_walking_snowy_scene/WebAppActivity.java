@@ -66,7 +66,6 @@ public class WebAppActivity extends AppCompatActivity {
         snowFlakesLayout.setEnableAlphaFade(true);
         snowFlakesLayout.startSnowing();
 
-
         Spinner ratioSpinner = findViewById(R.id.ratio_spinner);
 
         List<String> cdRatios = new LinkedList<>(Arrays.asList("C/D Ratio 0.5", "C/D Ratio 0.6", "C/D Ratio 0.7", "C/D Ratio 0.8","C/D Ratio 0.9","C/D Ratio 1"));

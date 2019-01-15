@@ -1,12 +1,3 @@
-window.onload = function(e){
-
-    document.getElementById("content").scrollTop = document.getElementById("content").scrollHeight/2;
-    document.getElementById("content").scrollLeft = document.getElementById("content").scrollWidth/2;
-}
-
-
-document.body.scrollTop = document.body.scrollHeight/2;
-document.body.scrollLeft = document.body.scrollWidth/2;
 var view = document.getElementById("snow-view");
 // Touch хийсэн газар хөлийн мөр харуулах
 function createFootPrint() {
@@ -96,7 +87,7 @@ view.addEventListener('mouseup', release, {passive: false} );
 max = parseInt(getComputedStyle(view).height, 10) - innerHeight;
 min = 0;
 offset = 20000;
-cdRatio = 1
+cdRatio = 2
 console.log(max);
 pressed = false;
 

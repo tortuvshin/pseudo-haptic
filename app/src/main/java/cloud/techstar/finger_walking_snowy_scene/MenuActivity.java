@@ -28,13 +28,13 @@ public class MenuActivity extends AppCompatActivity {
                 startActivity(new Intent(MenuActivity.this, WebAppActivity.class));
             }
         });
+        
         experiment1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MenuActivity.this, SnowyActivity.class));
+                startActivity(new Intent(MenuActivity.this, WebAppActivity.class));
             }
         });
-
 
         experiment2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,8 +48,6 @@ public class MenuActivity extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 
 
