@@ -21,38 +21,26 @@ public class Background {
 
     Background(Context context, int screenWidth, int screenHeight, String bitmapName,  int sY, int eY, float s){
 
-        // Make a resource id out of the string of the file name
         int resID = context.getResources().getIdentifier(bitmapName,
                 "drawable", context.getPackageName());
 
-        // Load the bitmap using the id
         bitmap = BitmapFactory.decodeResource(context.getResources(), resID);
 
-        // Which version of background (reversed or regular)
-        // is currently drawn first (on left)
         reversedFirst = false;
 
-        //Initialise animation variables.
-
-        // Where to clip the bitmaps
-        // Starting at the first pixel
         xClip = 0;
 
-        //Position the background vertically
         startY = sY * (screenHeight / 100);
         endY = eY * (screenHeight / 100);
         speed = s;
 
-        // Create the bitmap
         bitmap = Bitmap.createScaledBitmap(bitmap, screenWidth,
                 (endY - startY)
                 , true);
 
-        // Save the width and height for later use
         width = bitmap.getWidth();
         height = bitmap.getHeight();
 
-        //Create a mirror image of the background (horizontal flip)
         Matrix matrix = new Matrix();
         matrix.setScale(-1, 1);
         bitmapReversed = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
@@ -66,13 +54,9 @@ public class Background {
         if (xClip >= width) {
             xClip = 0;
             reversedFirst = !reversedFirst;
-//        } else if (xClip >= height) {
-//            xClip = 0;
-//            reversedFirst = !reversedFirst;
         } else if (xClip <= 0) {
             xClip = width;
             reversedFirst = !reversedFirst;
-
         }
     }
 }
