@@ -24,17 +24,14 @@ import java.util.List;
 import cloud.techstar.finger_walking_snowy_scene.component.SnowFlakesLayout;
 
 public class WebAppActivity extends AppCompatActivity {
-
     private Vibrator vibrator;
     private MediaPlayer mp;
     private double cdRatioValue;
-
     @SuppressLint({"SetJavaScriptEnabled", "ClickableViewAccessibility"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_app);
-
         WebView myWebView = (WebView) findViewById(R.id.webview);
         myWebView.setVerticalScrollBarEnabled(false);
         myWebView.setHorizontalScrollBarEnabled(false);
@@ -52,7 +49,6 @@ public class WebAppActivity extends AppCompatActivity {
         myWebView.addJavascriptInterface(new WebAppInterface(this), "Android");
         myWebView.loadUrl("file:android_asset/snow/viewer.html");
         myWebView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
-
         myWebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             // chromium, enable hardware acceleration
@@ -63,7 +59,6 @@ public class WebAppActivity extends AppCompatActivity {
         }
 
         mp = MediaPlayer.create(this, R.raw.snow);
-
         SnowFlakesLayout snowFlakesLayout = (SnowFlakesLayout)findViewById(R.id.web_snow_flake);
         snowFlakesLayout.init();
         snowFlakesLayout.setWholeAnimateTiming(3000000);
@@ -74,7 +69,6 @@ public class WebAppActivity extends AppCompatActivity {
         snowFlakesLayout.setEnableRandomCurving(true);
         snowFlakesLayout.setEnableAlphaFade(true);
         snowFlakesLayout.startSnowing();
-
         Spinner ratioSpinner = findViewById(R.id.ratio_spinner);
 
         List<String> cdRatios = new LinkedList<>(Arrays.asList("C/D Ratio 0.5", "C/D Ratio 0.6", "C/D Ratio 0.7", "C/D Ratio 0.8","C/D Ratio 0.9","C/D Ratio 1"));
@@ -82,7 +76,6 @@ public class WebAppActivity extends AppCompatActivity {
                 R.layout.spinner_item, cdRatios);
         ratioAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         ratioSpinner.setAdapter(ratioAdapter);
-
         ratioSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -111,13 +104,11 @@ public class WebAppActivity extends AppCompatActivity {
                 }
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
                     myWebView.evaluateJavascript("javascript: " +
-                                    "setCdRatio(\"" + cdRatioValue + "\")",
-                            null);
+                                    "setCdRatio(\"" + cdRatioValue + "\")", null);
                 } else {
                     myWebView.loadUrl("javascript:setCdRatio('"+cdRatioValue+"');");
                 }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
