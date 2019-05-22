@@ -6,15 +6,12 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 
 public class Background {
-
     Bitmap bitmap;
     Bitmap bitmapReversed;
-
     int width;
     int height;
     boolean reversedFirst;
     float speed;
-
     int xClip;
     int startY;
     int endY;
@@ -27,28 +24,23 @@ public class Background {
         bitmap = BitmapFactory.decodeResource(context.getResources(), resID);
 
         reversedFirst = false;
-
         xClip = 0;
-
+        
         startY = sY * (screenHeight / 100);
         endY = eY * (screenHeight / 100);
         speed = s;
 
         bitmap = Bitmap.createScaledBitmap(bitmap, screenWidth,
-                (endY - startY)
-                , true);
+                (endY - startY) , true);
 
         width = bitmap.getWidth();
         height = bitmap.getHeight();
-
         Matrix matrix = new Matrix();
         matrix.setScale(-1, 1);
         bitmapReversed = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
-
     }
 
     public void update(float fps){
-
         // Цасны байршлыг хөдөлгөх шаардлагатай бол шинээр солино
         xClip -= fps;
         if (xClip >= width) {
