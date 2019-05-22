@@ -17,22 +17,17 @@ public class Background {
     int endY;
 
     Background(Context context, int screenWidth, int screenHeight, String bitmapName,  int sY, int eY, float s){
-
-        int resID = context.getResources().getIdentifier(bitmapName,
-                "drawable", context.getPackageName());
-
+        int resID = context.getResources().getIdentifier(bitmapName, "drawable", context.getPackageName());
+        
         bitmap = BitmapFactory.decodeResource(context.getResources(), resID);
-
         reversedFirst = false;
         xClip = 0;
-        
+   
         startY = sY * (screenHeight / 100);
         endY = eY * (screenHeight / 100);
         speed = s;
 
-        bitmap = Bitmap.createScaledBitmap(bitmap, screenWidth,
-                (endY - startY) , true);
-
+        bitmap = Bitmap.createScaledBitmap(bitmap, screenWidth, (endY - startY) , true);
         width = bitmap.getWidth();
         height = bitmap.getHeight();
         Matrix matrix = new Matrix();
